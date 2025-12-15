@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap');
+
+/* --- RESET & VARIAVEIS --- */
+:root {
+  --bg-color: #050508;
+  --panel-bg: #0d0d12;
+  --neon-purple: #b026ff;
+  --neon-dim: #5c0099;
+  --text-main: #e0e0e0;
+  --user-bg: #2a0e3b;
+  --bot-bg: #111116;
+  --cyan-accent: #00f3ff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Fira Code', 'Courier New', monospace; /* Fonte Hacker */
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* --- EFEITO DE SCANLINE (TV VELHA) --- */
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0) 50%,
+    rgba(0,0,0,0.1) 50%,
+    rgba(0,0,0,0.1)
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* --- CONTAINER PRINCIPAL --- */
+.cyber-container {
+  width: 100%;
+  max-width: 900px;
+  height: 100vh;
+  background: var(--panel-bg);
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--neon-dim);
+  border-right: 1px solid var(--neon-dim);
+  box-shadow: 0 0 20px rgba(176, 38, 255, 0.15);
+  position: relative;
+}
+
+/* --- HEADER --- */
+.cyber-header {
+  background-color: #000;
+  border-bottom: 2px solid var(--neon-purple);
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 15px var(--neon-purple);
+  z-index: 10;
+}
+
+.cyber-header h1 {
+  font-size: 1.5rem;
+  color: var(--neon-purple);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 5px var(--neon-purple);
+}
+
+/* --- ÁREA DE MENSAGENS --- */
+.cyber-messages-area {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-image: radial-gradient(var(--bot-bg) 20%, transparent 20%),
+      radial-gradient(var(--bot-bg) 20%, transparent 20%);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+}
+
+/* Scrollbar customizada */
+.cyber-messages-area::-webkit-scrollbar {
+  width: 8px;
+}
+.cyber-messages-area::-webkit-scrollbar-track {
+  background: #000;
+}
+.cyber-messages-area::-webkit-scrollbar-thumb {
+  background: var(--neon-dim);
+  border: 1px solid var(--neon-purple);
+}
+
+/* --- BOLHAS DE MENSAGEM --- */
+.cyber-bubble {
+  max-width: 85%;
+  padding: 15px;
+  position: relative;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  border: 1px solid transparent;
+}
+
+.bubble-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.75rem;
+  opacity: 0.7;
+  border-bottom: 1px dashed rgba(255,255,255,0.2);
+  padding-bottom: 4px;
+}
+
+/* Estilo do Bot */
+.cyber-bubble.bot {
+  align-self: flex-start;
+  background-color: rgba(17, 17, 22, 0.9);
+  border: 1px solid var(--neon-dim);
+  border-left: 4px solid var(--neon-purple);
+  box-shadow: -5px 5px 0px rgba(0,0,0,0.5);
+  color: #d1d1d1;
+}
+
+.cyber-bubble.bot .user-label { color: var(--neon-purple); }
+
+/* Estilo do Usuário */
+.cyber-bubble.user {
+  align-self: flex-end;
+  background-color: rgba(42, 14, 59, 0.8);
+  border: 1px solid var(--neon-purple);
+  border-right: 4px solid var(--cyan-accent);
+  box-shadow: 5px 5px 0px rgba(0,0,0,0.5);
+  color: #fff;
+}
+
+.cyber-bubble.user .user-label { color: var(--cyan-accent); }
+
+/* --- INPUT AREA --- */
+.cyber-input-area {
+  padding: 20px;
+  background: #000;
+  border-top: 1px solid var(--neon-purple);
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.prompt-char {
+  color: var(--neon-purple);
+  font-weight: bold;
+  font-size: 1.2rem;
+  animation: blink 1s infinite;
+}
+
+.cyber-input-area input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--neon-purple);
+  font-size: 1rem;
+  outline: none;
+  border-bottom: 1px solid #333;
+  padding: 10px;
+  transition: 0.3s;
+}
+
+.cyber-input-area input:focus {
+  border-bottom: 1px solid var(--neon-purple);
+  box-shadow: 0 10px 20px -10px rgba(176, 38, 255, 0.2);
+}
+
+.cyber-input-area button {
+  padding: 10px 25px;
+  background: transparent;
+  color: var(--neon-purple);
+  border: 1px solid var(--neon-purple);
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: 0.3s;
+  letter-spacing: 1px;
+}
+
+.cyber-input-area button:hover:not(:disabled) {
+  background: var(--neon-purple);
+  color: #000;
+  box-shadow: 0 0 15px var(--neon-purple);
+}
+
+.cyber-input-area button:disabled {
+  border-color: #444;
+  color: #444;
+}
+
+/* --- LOADING ANIMATION --- */
+.loading-cyber {
+  color: var(--cyan-accent);
+  font-style: italic;
+  font-size: 0.8rem;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* --- MARKDOWN STYLING (TABELAS ROXAS) --- */
+.markdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+  font-size: 0.85rem;
+  border: 1px solid var(--neon-dim);
+}
+
+.markdown-content th {
+  background-color: var(--user-bg);
+  color: var(--cyan-accent);
+  padding: 8px;
+  border: 1px solid var(--neon-dim);
+  text-align: left;
+}
+
+.markdown-content td {
+  padding: 8px;
+  border: 1px solid #333;
+  color: #ccc;
+}
+
+.markdown-content tr:hover {
+  background-color: rgba(176, 38, 255, 0.1);
+}
+
+.markdown-content ul {
+  margin-left: 20px;
+}
+
+.markdown-content strong {
+  color: var(--cyan-accent);
+}
