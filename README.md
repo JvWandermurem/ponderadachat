@@ -4,6 +4,8 @@
 
 Este projeto é um **Agente de Inteligência Artificial** desenvolvido para atuar como auditor da Dunder Mifflin. O sistema foi projetado para auxiliar o RH (Toby Flenderson) a identificar violações de compliance, analisar gastos excessivos e detectar fraudes complexas através do cruzamento de dados não estruturados (e-mails) com dados estruturados (transações bancárias).
 
+![diagrama arquitetura](diagrama.png)
+
 ---
 
 ## Arquitetura do Projeto
@@ -32,7 +34,7 @@ graph TD
     Cross --> VectorDB & SQLite
 ```
 
-![diagrama arquitetura](diagrama.png)
+
 
 ### Componentes Tecnicos
 
